@@ -1,0 +1,12 @@
+{
+  "shared": {
+    "ai_model": "SET_ME_FROM_GOOGLE_MODEL_VERSIONS_PAGE",
+    "ai_location": "us-central1",
+    "first_notice_channels": ["sms", "whatsapp", "email"],
+    "default_reminder_channel": "sms",
+    "email_from_name": "EnterpriseSend"
+  },
+  "local":      { "web_origin": "http://localhost:3000", "email_from": "noreply@localhost" },
+  "staging":    { "web_origin": "https://sender.tekfolio.ng", "email_from": "billing@sender.tekfolio.ng" },
+  "production": { "web_origin": "https://enterprisesend.com", "email_from": "billing@enterprisesend.com" }
+}
