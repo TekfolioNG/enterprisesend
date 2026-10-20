@@ -3,6 +3,7 @@ import uuid
 
 from flask import Blueprint, Response, current_app, g, jsonify, request
 from google.cloud import firestore
+from google.cloud.firestore_v1.base_query import FieldFilter
 
 from ai.gateway import flag_anomalies
 
@@ -53,7 +54,7 @@ def create_batch():
 
     content_hash = hashlib.sha256(data).hexdigest()
     if not request.args.get("allow_duplicate"):
-        dup = list(_batches().where("content_hash", "==", content_hash).limit(1).stream())
+        dup = list(_batches().where(filter=FieldFilter("content_hash", "==", content_hash)).limit(1).stream())
         if dup:
             return jsonify(error="This exact file was already uploaded",
                            existing_batch=dup[0].id), 409
