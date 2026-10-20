@@ -1,0 +1,7 @@
+{
+  "python.defaultInterpreterPath": "${workspaceFolder}/services/api/.venv/bin/python",
+  "python.testing.pytestEnabled": true,
+  "python.testing.pytestArgs": ["services/api/tests"],
+  "editor.formatOnSave": true,
+  "files.eol": "\n"
+}
