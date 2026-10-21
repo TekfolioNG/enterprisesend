@@ -33,6 +33,7 @@ def require_auth(*roles):
             if roles and role not in roles:
                 return jsonify(error="Insufficient role"), 403
             g.uid, g.tenant_id, g.role = claims["uid"], tenant_id, role
+            g.email = claims.get("email", "")
             return fn(*args, **kwargs)
         return wrapper
     return deco

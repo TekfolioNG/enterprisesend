@@ -4,6 +4,8 @@ import os
 from dataclasses import dataclass, field
 from pathlib import Path
 
+# Placeholder prices in kobo per message (delivery cost + 20%). Confirm with your providers.
+DEFAULT_PRICES = {"sms": 800, "whatsapp": 1500, "email": 150}
 DEFAULT_FILE = Path(__file__).resolve().parents[3] / "settings" / "app.json"
 
 
@@ -18,6 +20,7 @@ class Settings:
     first_notice_channels: list = field(default_factory=list)
     default_reminder_channel: str = "sms"
     require_mfa: bool = True
+    message_price_kobo: dict = field(default_factory=lambda: dict(DEFAULT_PRICES))
 
 
 def load_settings() -> Settings:
@@ -34,5 +37,6 @@ def load_settings() -> Settings:
         ai_location=merged["ai_location"],
         first_notice_channels=merged["first_notice_channels"],
         default_reminder_channel=merged["default_reminder_channel"],
+        message_price_kobo=merged.get("message_price_kobo", dict(DEFAULT_PRICES)),
         require_mfa=(env != "local"),  # enforced on staging and production
     )

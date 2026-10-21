@@ -20,3 +20,9 @@ def initialize_transaction(email: str, amount_naira: float, reference: str,
               "reference": reference, "metadata": metadata or {}})
     r.raise_for_status()
     return r.json()["data"]
+
+
+def mock_initialize_transaction(email: str, amount_naira: float, reference: str,
+                                metadata: dict | None = None) -> dict:
+    """Local development only (PAYSTACK_MOCK=true). Never used when real keys are set."""
+    return {"authorization_url": f"https://paystack.local/pay/{reference}", "reference": reference}
