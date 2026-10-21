@@ -127,12 +127,15 @@ def process_batch(tenant_id, batch_id, adapters, link_fn, prices, channels, now=
     if claim != "ok":
         return {"result": claim}
     stats = {"sent": 0, "failed": 0, "unfunded": 0, "suppressed": 0, "scheduled": 0}
+    next_at = None
     try:
         todo = bref.collection("rows").where(
             filter=FieldFilter("status", "in", ["pending", "unfunded"])).stream()
         for doc in todo:
-            if datetime.fromisoformat(doc.to_dict()["send_at"]) > now:
+            due = datetime.fromisoformat(doc.to_dict()["send_at"])
+            if due > now:
                 stats["scheduled"] += 1
+                next_at = due if next_at is None else min(next_at, due)
                 continue
             stats[_send_row(tenant_id, batch_id, bref, doc, adapters, link_fn, prices, channels)] += 1
     finally:
@@ -140,7 +143,8 @@ def process_batch(tenant_id, batch_id, adapters, link_fn, prices, channels, now=
             q = bref.collection("rows").where(filter=FieldFilter("status", "==", status)).limit(1)
             return any(True for _ in q.stream())
         status = "sending" if any_with("pending") else ("needs_funding" if any_with("unfunded") else "completed")
-        bref.update({"status": status, "lock_until": None})
+        bref.update({"status": status, "lock_until": None,
+                      "next_send_at": next_at.isoformat() if next_at else None})
     return {"result": "ok", "status": status, **stats}
 
 

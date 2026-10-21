@@ -114,7 +114,7 @@ def validate_rows(rows: list, now: datetime | None = None):
             local = datetime.strptime(r["scheduled_send_date"], "%Y-%m-%d %H:%M:%S").replace(tzinfo=LAGOS)
             send_at = local.astimezone(timezone.utc)
             if send_at < now - timedelta(minutes=5):
-                bad("scheduled_send_date", "Send time is in the past")
+                bad("scheduled_send_date", "Send time is in the past. Choose a time a few minutes from now or later")
         except ValueError:
             bad("scheduled_send_date", "Use YYYY-MM-DD HH:MM:SS (Lagos time)")
 
@@ -136,7 +136,7 @@ def build_template_xlsx() -> bytes:
     ws = wb.active
     ws.title = "Billing"
     ws.append(COLUMNS)
-    tomorrow = (datetime.now(LAGOS) + timedelta(days=1)).strftime("%Y-%m-%d 09:00:00")
+    tomorrow = (datetime.now(LAGOS) + timedelta(minutes=10)).strftime("%Y-%m-%d %H:%M:%S")
     ws.append(["A-001", "Ada Obi", "ada@example.com", "2348012345678", 50000,
                "2026-12-31", tomorrow, "First Term Tuition"])
     for col, letter in zip(COLUMNS, "ABCDEFGH"):

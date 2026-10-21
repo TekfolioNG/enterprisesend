@@ -148,6 +148,8 @@ def test_future_rows_wait(client, fakes, tenant):
     wallet.credit(tenant, 1_000_000, "topup", "seed")
     out = client.post(f"/v1/batches/{batch_id}/send", headers=bearer(checker)).json
     assert out["scheduled"] == 2 and out["status"] == "sending"
+    batch = tenant_ref(tenant).collection("batches").document(batch_id).get().to_dict()
+    assert batch["next_send_at"] is not None
     assert all(f.sent == [] for f in fakes.values())
 
 

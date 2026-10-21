@@ -8,7 +8,7 @@ from firebase_admin import auth as fb_auth
 from app.auth import _init
 
 PASSWORD = "Passw0rd!test"
-USERS = [("maker@client-a.test", "client-a", "maker"), ("checker@client-a.test", "client-a", "checker"),
+USERS = [("admin@client-a.test", "client-a", "admin"), ("maker@client-a.test", "client-a", "maker"), ("checker@client-a.test", "client-a", "checker"),
          ("maker@client-b.test", "client-b", "maker"), ("checker@client-b.test", "client-b", "checker")]
 
 _init()
