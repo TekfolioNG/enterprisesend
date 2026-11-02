@@ -14,6 +14,8 @@ def create_app() -> Flask:
     app.register_blueprint(batches_bp)
     from .routes.money import bp as money_bp
     app.register_blueprint(money_bp)
+    from .routes.activity import bp as activity_bp
+    app.register_blueprint(activity_bp)
 
     @app.after_request
     def cors(resp):

@@ -5,6 +5,7 @@ from ..auth import require_auth
 bp = Blueprint("core", __name__)
 
 
+@bp.get("/health")
 @bp.get("/healthz")
 def healthz():
     return jsonify(status="ok")

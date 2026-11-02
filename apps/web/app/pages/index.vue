@@ -31,12 +31,17 @@ async function load() {
 }
 
 async function downloadTemplate() {
-  const res = await call('/v1/template.xlsx')
-  if (!res.ok) return say('Could not download the template', true)
-  const url = URL.createObjectURL(await res.blob())
-  const a = document.createElement('a')
-  a.href = url; a.download = 'enterprisesend-template.xlsx'; a.click()
-  URL.revokeObjectURL(url)
+  try {
+    const res = await call('/v1/template.xlsx')
+    if (!res.ok) return say(`Could not download the template (the server answered ${res.status}).`, true)
+    const url = URL.createObjectURL(await res.blob())
+    const a = document.createElement('a')
+    a.href = url; a.download = 'enterprisesend-template.xlsx'
+    document.body.appendChild(a); a.click(); a.remove()
+    URL.revokeObjectURL(url)
+  } catch {
+    say('Could not download the template: the browser could not reach the server.', true)
+  }
 }
 
 async function upload(e: Event) {
@@ -99,11 +104,7 @@ onMounted(load)
 
 <template>
   <main class="page">
-    <header class="bar">
-      <h1>EnterpriseSend</h1>
-      <div class="muted">{{ user?.email }} · {{ claims.role }} · {{ claims.tenant_id }}
-        <button class="link" @click="logout">Sign out</button></div>
-    </header>
+    <TopBar />
 
     <section v-if="dash" class="stats">
       <div class="stat"><span class="muted">Wallet</span><b>{{ naira(dash.wallet_kobo) }}</b></div>
@@ -129,6 +130,7 @@ onMounted(load)
       <input type="file" accept=".csv,.xlsx" :disabled="busy" @change="upload">
     </section>
 
+    <div v-if="busy" class="busy"><MarkLoader /><span class="muted">Working…</span></div>
     <p v-if="message" :class="messageIsError ? 'error' : 'ok'">{{ message }}</p>
 
     <section v-if="problems.length" class="card">
@@ -157,6 +159,7 @@ onMounted(load)
           <td>{{ b.sent_count || 0 }}</td>
           <td>{{ b.paid_count || 0 }}</td>
           <td>
+            <NuxtLink :to="`/batches/${b.id}`" class="viewlink">View messages</NuxtLink>
             <button v-if="canApprove && b.status === 'checked'" @click="approve(b.id)">Approve</button>
             <button v-if="canSend && ['approved', 'sending', 'needs_funding'].includes(b.status)"
                     :disabled="busy" @click="send(b.id)">{{ b.status === 'sending' ? 'Send due messages' : 'Send' }}</button>

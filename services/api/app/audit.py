@@ -15,15 +15,19 @@ def entry_hash(prev_hash: str, payload: dict) -> str:
     return hashlib.sha256((prev_hash + body).encode("utf-8")).hexdigest()
 
 
-def verify_chain(entries: list) -> bool:
-    """entries: dicts ordered by seq, each with payload fields, prev_hash and hash."""
+def find_break(entries: list):
+    """Returns the seq of the first entry that does not fit the chain, or None if intact."""
     prev = GENESIS
-    for e in entries:
+    for i, e in enumerate(entries, start=1):
         payload = {k: e[k] for k in ("seq", "actor", "action", "detail", "at")}
-        if e["prev_hash"] != prev or entry_hash(prev, payload) != e["hash"]:
-            return False
+        if e["seq"] != i or e["prev_hash"] != prev or entry_hash(prev, payload) != e["hash"]:
+            return e["seq"]
         prev = e["hash"]
-    return True
+    return None
+
+
+def verify_chain(entries: list) -> bool:
+    return find_break(entries) is None
 
 
 @firestore.transactional

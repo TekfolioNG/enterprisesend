@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" width="200" height="60" role="img" aria-label="Loading"><title>Loading</title>
+<style>
+.r,.l,.d,.c{animation-duration:3.2s;animation-iteration-count:infinite;animation-timing-function:ease-in-out}
+.r1,.l1{animation-name:on1} .r2,.l2{animation-name:on2} .r3,.l3{animation-name:on3}
+.d{animation-name:disc;transform-box:fill-box;transform-origin:center} .c{animation-name:chk;stroke-dasharray:44;}
+@keyframes on1{0%,6%{stroke-opacity:.25}14%,86%{stroke-opacity:1}100%{stroke-opacity:.25}}
+@keyframes on2{0%,20%{stroke-opacity:.25}28%,86%{stroke-opacity:1}100%{stroke-opacity:.25}}
+@keyframes on3{0%,34%{stroke-opacity:.25}42%,86%{stroke-opacity:1}100%{stroke-opacity:.25}}
+@keyframes disc{0%,48%{transform:scale(.2);opacity:.2}58%,86%{transform:scale(1);opacity:1}100%{transform:scale(.2);opacity:.2}}
+@keyframes chk{0%,58%{stroke-dashoffset:44}72%,86%{stroke-dashoffset:0}100%{stroke-dashoffset:44}}
+@media (prefers-reduced-motion:reduce){.r,.l,.d,.c{animation:none}}
+</style><circle class="r r1" cx="14" cy="30" r="11" fill="none" stroke="#310CA7" stroke-width="6"/><path class="l l1" d="M27 30H43" stroke="#310CA7" stroke-width="6"/><circle class="r r2" cx="56" cy="30" r="11" fill="none" stroke="#310CA7" stroke-width="6"/><path class="l l2" d="M69 30H85" stroke="#310CA7" stroke-width="6"/><circle class="r r3" cx="98" cy="30" r="11" fill="none" stroke="#310CA7" stroke-width="6"/><path class="l l3" d="M111 30H142" stroke="#310CA7" stroke-width="6"/><circle class="d" cx="170" cy="30" r="30" fill="#310CA7"/><path class="c" d="M157 31L166 40L184 20" fill="none" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg>

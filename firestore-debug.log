@@ -1,4 +1,4 @@
-Oct 21, 2026 7:28:07 AM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketServer start
+Oct 25, 2026 3:24:10 PM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketServer start
 INFO: Started WebSocket server on ws://127.0.0.1:9150
 
 API endpoint: http://127.0.0.1:8085
@@ -16,9 +16,7 @@ If you are running a Firestore in Datastore Mode project, run:
 Note: Support for Datastore Mode is in preview. If you encounter any bugs please file at https://github.com/firebase/firebase-tools/issues.
 Dev App Server is now running.
 
-Oct 21, 2026 7:29:07 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+Oct 25, 2026 3:26:11 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
 INFO: Detected HTTP/2 connection.
-Oct 21, 2026 7:30:41 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
-INFO: Detected HTTP/2 connection.
-Oct 21, 2026 12:32:42 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+Oct 25, 2026 7:50:41 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
 INFO: Detected HTTP/2 connection.
