@@ -1,10 +1,14 @@
+import tailwindcss from '@tailwindcss/vite'
+
 export default defineNuxtConfig({
   compatibilityDate: '2026-10-01',
   devtools: { enabled: false },
+  vite: { plugins: [tailwindcss()] },
   css: [
+    '~/assets/css/tailwind.css',
     '@fontsource-variable/space-grotesk/index.css',
     '@fontsource-variable/inter/index.css',
-    '~/assets/site.css'
+    '~/assets/css/base.css'
   ],
   nitro: { prerender: { routes: ['/', '/apply', '/privacy', '/terms'] } },
   runtimeConfig: {
@@ -21,7 +25,7 @@ export default defineNuxtConfig({
       // Marks the page as 'will animate' before first paint, unless the visitor prefers reduced motion.
       // If the animation code has not started within 5 seconds, the class is removed so nothing stays hidden.
       script: [{ innerHTML: "(function(){var d=document.documentElement;if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;d.classList.add('anim');setTimeout(function(){if(!window.__heroStarted)d.classList.remove('anim')},5000)})()", tagPosition: 'head' }],
-      noscript: [{ innerHTML: '<style>.anim .reveal,.anim .beat-inner,.anim .scene-hide,.anim .ov{opacity:1!important;visibility:visible!important}</style>' }],
+      noscript: [{ innerHTML: '<style>.anim .reveal,.anim .kicker-reveal,.anim .beat-inner,.anim .scene-hide,.anim .ov{opacity:1!important;visibility:visible!important}</style>' }],
       title: 'EnterpriseSend: verified billing, fast payments, no arguments',
       meta: [
         { name: 'description', content: 'Upload your billing file to reach every customer across SMS, WhatsApp, and email with a personalized, secure payment link, and match every incoming payment to its bill.' },

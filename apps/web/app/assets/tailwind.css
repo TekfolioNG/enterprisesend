@@ -1,0 +1,21 @@
+/* Tailwind CSS 4 without Preflight (its global reset), so existing pages look exactly as before.
+   The app's existing styles (main.css) are unchanged; new screens can use utilities. Brand tokens come from the Tekfolio brand book. */
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+
+@theme {
+  --color-brand-indigo: #4A15A4;   /* Cyber Indigo: dominant */
+  --color-brand-magenta: #75138C;  /* Magenta Flare */
+  --color-ink: #0B0B14;
+  --color-paper: #FAFBFC;
+  --color-cloud: #E5E8ED;
+  --color-ai-blue: #2FB6FF;        /* hover and focus only */
+  --color-verified: #0B7A52;
+  --color-muted: #4B5565;
+  --color-cta: #75138C;            /* the ONE primary action color: change it here to change every main button */
+  --color-cta-dark: #5F0F73;
+  --font-display: 'Space Grotesk Variable', 'Segoe UI', system-ui, sans-serif;
+  --font-sans: 'Inter Variable', 'Segoe UI', system-ui, sans-serif;
+  --breakpoint-tablet: 56.25rem;   /* 900px: where the layout switches to the phone version */
+}

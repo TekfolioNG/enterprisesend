@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { site } from '~/utils/site'
+import { site } from '~/utils/config'
 useHead({ title: 'Start Secure Billing: EnterpriseSend' })
 
 const f = reactive({ org: '', rc: '', name: '', email: '', phone: '', use: 'Bills and fees', volume: 'Under 500', notes: '' })

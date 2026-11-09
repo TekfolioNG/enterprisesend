@@ -6,12 +6,21 @@
     "dev": "nuxt dev",
     "build": "nuxt build",
     "generate": "nuxt generate",
-    "preview": "nuxt preview"
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "typecheck": "nuxt typecheck"
   },
   "dependencies": {
     "firebase": "^11.0.0",
-    "nuxt": "^4.0.0",
+    "nuxt": "^4.5.0",
     "vue": "^3.5.0",
     "qrcode": "^1.5.4"
+  },
+  "devDependencies": {
+    "tailwindcss": "^4.1.0",
+    "@tailwindcss/vite": "^4.1.0",
+    "typescript": "^5.6.0",
+    "vue-tsc": "^3.0.0",
+    "@types/qrcode": "^1.5.5"
   }
 }

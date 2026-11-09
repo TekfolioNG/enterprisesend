@@ -1,14 +1,15 @@
+import tailwindcss from '@tailwindcss/vite'
 import { brand } from './app/utils/brand'
 
 export default defineNuxtConfig({
   compatibilityDate: '2026-10-01',
   ssr: false, // single-page app: simple to host and nothing sensitive renders on a server
   devtools: { enabled: false },
-  css: ['~/assets/main.css'],
+  vite: { plugins: [tailwindcss()] },
+  css: ['~/assets/tailwind.css', '~/assets/main.css'],
   app: {
     head: {
       title: brand.productName,
-      titleTemplate: (t?: string) => (t && t !== brand.productName ? `${t} · ${brand.productName}` : brand.productName),
       meta: [{ name: 'theme-color', content: '#310CA7' }],
       link: [
         { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },

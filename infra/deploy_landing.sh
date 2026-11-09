@@ -9,15 +9,15 @@ REGION="${REGION:-europe-west1}"
 APP_URL="${APP_URL:-https://staging.enterprisesend.com}"
 INDEXABLE="${INDEXABLE:-false}"
 
-( cd apps/site && npm install --no-audit --no-fund --legacy-peer-deps >/dev/null && \
+( cd apps/landing && npm install --no-audit --no-fund --legacy-peer-deps >/dev/null && \
   NUXT_PUBLIC_APP_URL="$APP_URL" NUXT_PUBLIC_INDEXABLE="$INDEXABLE" npx nuxt generate )
 
-rm -rf infra/site/public
-cp -r apps/site/.output/public infra/site/public
-trap 'rm -rf infra/site/public' EXIT
+rm -rf infra/landing/public
+cp -r apps/landing/.output/public infra/landing/public
+trap 'rm -rf infra/landing/public' EXIT
 
 gcloud run deploy enterprisesend-site --project "$PROJECT" --region "$REGION" \
-  --source infra/site --allow-unauthenticated \
+  --source infra/landing --allow-unauthenticated \
   --min-instances 0 --max-instances 2 --memory 256Mi
 
 echo
