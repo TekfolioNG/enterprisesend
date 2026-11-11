@@ -15,6 +15,7 @@
   --color-muted: #4B5565;
   --color-cta: #4A15A4;            /* the ONE primary action color: change it here to change every main button */
   --color-cta-dark: #5F0F73;
+  --color-alert: #B42318;
   --font-display: 'Space Grotesk Variable', 'Segoe UI', system-ui, sans-serif;
   --font-sans: 'Inter Variable', 'Segoe UI', system-ui, sans-serif;
   --breakpoint-tablet: 56.25rem;   /* 900px: where the layout switches to the phone version */
