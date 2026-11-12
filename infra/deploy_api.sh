@@ -16,7 +16,7 @@ ENVVARS="ENVIRONMENT=staging,GOOGLE_CLOUD_PROJECT=${PROJECT},UPLOAD_BUCKET=${BUC
 [ -n "${TERMII_SENDER_ID:-}" ] && ENVVARS="${ENVVARS},TERMII_SENDER_ID=${TERMII_SENDER_ID}"
 
 SECRETS=""
-for pair in TERMII_API_KEY:termii-api-key SENDGRID_API_KEY:sendgrid-api-key PAYSTACK_SECRET_KEY:paystack-secret-key; do
+for pair in TERMII_API_KEY:termii-api-key RESEND_API_KEY:resend-api-key PAYSTACK_SECRET_KEY:paystack-secret-key; do
   var="${pair%%:*}"; name="${pair##*:}"
   if gcloud secrets describe "$name" --project "$PROJECT" >/dev/null 2>&1; then
     SECRETS="${SECRETS:+$SECRETS,}${var}=${name}:latest"

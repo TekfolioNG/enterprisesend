@@ -1,7 +1,7 @@
 import os
 
 from .log import LogAdapter
-from .sendgrid import SendGridEmail
+from .resend import ResendEmail
 from .termii import TermiiSms
 from .whatsapp import WhatsAppStub
 
@@ -13,4 +13,4 @@ def build_adapters(settings) -> dict:
             raise RuntimeError("DELIVERY_MODE=log is for local development only")
         return {c: LogAdapter(c) for c in ("sms", "whatsapp", "email")}
     return {"sms": TermiiSms(), "whatsapp": WhatsAppStub(),
-            "email": SendGridEmail(settings.email_from)}
+            "email": ResendEmail(settings.email_from)}

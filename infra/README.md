@@ -6,7 +6,7 @@ Run from the repo root. Staging runs WITHOUT MFA until the MFA screen exists: us
 1. `chmod +x infra/*.sh && infra/bootstrap_staging.sh`
 2. Console > Identity Platform: enable it, add the Email/Password provider.
    Console > APIs & Services > Credentials: copy the "Browser key" value (restrict it later to your web address).
-3. Secrets (optional now, hidden prompt): `infra/set_secret.sh paystack-secret-key` (also termii-api-key, sendgrid-api-key)
+3. Secrets (optional now, hidden prompt): `infra/set_secret.sh paystack-secret-key` (also termii-api-key, resend-api-key)
 4. `infra/deploy_api.sh`  -> prints the API address
 5. `API_URL=<api address> FIREBASE_API_KEY=<browser key> infra/deploy_web.sh`  -> prints the web address
 6. Point the API at the web address (CORS), and allow it to sign in:

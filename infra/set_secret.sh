@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Stores one secret in Secret Manager. The value is typed hidden: it never touches your shell history.
-#   infra/set_secret.sh termii-api-key | sendgrid-api-key | paystack-secret-key
+#   infra/set_secret.sh termii-api-key | resend-api-key | paystack-secret-key
 set -euo pipefail
 NAME="${1:?usage: infra/set_secret.sh SECRET_NAME}"
 PROJECT="${PROJECT:-enterprisesend-staging}"
