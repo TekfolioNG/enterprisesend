@@ -5,8 +5,6 @@ from flask import Blueprint, Response, current_app, g, jsonify, request
 from google.cloud import firestore
 from google.cloud.firestore_v1.base_query import FieldFilter
 
-from ai.gateway import flag_anomalies
-
 from ..audit import append_event
 from ..auth import require_auth
 from ..db import get_db, tenant_ref
@@ -61,17 +59,11 @@ def create_batch():
 
     batch_id = uuid.uuid4().hex
     file_uri = save_original(g.tenant_id, batch_id, file.filename, data)
-    try:
-        ai = flag_anomalies(current_app.config["SETTINGS"], [
-            {"account_id": c["account_id"], "invoice_amount": c["amount_kobo"] / 100,
-             "description": c["description"]} for c in clean])
-    except Exception:
-        ai = {"enabled": False, "flags": [], "error": "ai_unavailable"}
 
     ref = _batches().document(batch_id)
     ref.set({"status": "checked", "uploaded_by": g.uid, "file_uri": file_uri,
              "content_hash": content_hash, "row_count": len(clean),
-             "total_kobo": sum(c["amount_kobo"] for c in clean), "ai": ai,
+             "total_kobo": sum(c["amount_kobo"] for c in clean),
              "created_at": firestore.SERVER_TIMESTAMP})
     for i in range(0, len(clean), 400):
         wb = get_db().batch()
@@ -80,8 +72,7 @@ def create_batch():
         wb.commit()
     append_event(g.tenant_id, g.uid, "batch_uploaded",
                  {"batch_id": batch_id, "rows": len(clean), "sha256": content_hash})
-    return jsonify(batch_id=batch_id, status="checked", rows=len(clean),
-                   ai_flags=ai.get("flags", []), ai_enabled=ai.get("enabled", False)), 201
+    return jsonify(batch_id=batch_id, status="checked", rows=len(clean)), 201
 
 
 @firestore.transactional

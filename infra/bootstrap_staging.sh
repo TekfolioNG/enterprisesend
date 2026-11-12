@@ -9,14 +9,13 @@ BUCKET="${PROJECT}-uploads"
 gcloud config set project "$PROJECT"
 gcloud services enable run.googleapis.com firestore.googleapis.com cloudbuild.googleapis.com \
   artifactregistry.googleapis.com secretmanager.googleapis.com cloudtasks.googleapis.com \
-  cloudscheduler.googleapis.com storage.googleapis.com identitytoolkit.googleapis.com \
-  aiplatform.googleapis.com
+  cloudscheduler.googleapis.com storage.googleapis.com identitytoolkit.googleapis.com
 
 gcloud iam service-accounts describe "$SA_EMAIL" >/dev/null 2>&1 || \
   gcloud iam service-accounts create es-api --display-name="EnterpriseSend API"
 
-# Least privilege: the API can use Firestore, read secrets, queue tasks and call Vertex AI.
-for role in roles/datastore.user roles/secretmanager.secretAccessor roles/cloudtasks.enqueuer roles/aiplatform.user; do
+# Least privilege: the API can use Firestore, read secrets and queue tasks.
+for role in roles/datastore.user roles/secretmanager.secretAccessor roles/cloudtasks.enqueuer; do
   gcloud projects add-iam-policy-binding "$PROJECT" --member="serviceAccount:${SA_EMAIL}" \
     --role="$role" --condition=None --quiet >/dev/null
 done

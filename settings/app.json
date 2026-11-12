@@ -1,7 +1,5 @@
 {
   "shared": {
-    "ai_model": "SET_ME_FROM_GOOGLE_MODEL_VERSIONS_PAGE",
-    "ai_location": "us-central1",
     "first_notice_channels": [
       "sms",
       "whatsapp",

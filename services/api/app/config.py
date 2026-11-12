@@ -24,8 +24,6 @@ class Settings:
     project_id: str
     web_origin: str
     email_from: str
-    ai_model: str
-    ai_location: str
     first_notice_channels: list = field(default_factory=list)
     default_reminder_channel: str = "sms"
     require_mfa: bool = True
@@ -52,8 +50,6 @@ def load_settings() -> Settings:
         project_id=os.getenv("GOOGLE_CLOUD_PROJECT", "enterprisesend-local"),
         web_origin=os.getenv("WEB_ORIGIN") or merged["web_origin"],
         email_from=merged["email_from"],
-        ai_model=merged["ai_model"],
-        ai_location=merged["ai_location"],
         first_notice_channels=merged["first_notice_channels"],
         default_reminder_channel=merged["default_reminder_channel"],
         message_price_kobo=merged.get("message_price_kobo", dict(DEFAULT_PRICES)),

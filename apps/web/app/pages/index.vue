@@ -55,8 +55,7 @@ async function upload(e: Event) {
     const res = await call('/v1/batches', { method: 'POST', body: form })
     const data = await res.json()
     if (res.status === 201) {
-      const flags = data.ai_flags?.length ? ` The AI check flagged ${data.ai_flags.length} row(s) for review.` : ''
-      say(`Checked ${data.rows} rows. Waiting for a manager's approval.${flags}`)
+      say(`Checked ${data.rows} rows. Waiting for a manager's approval.`)
     } else {
       problems.value = data.errors || []
       say(data.error || 'Upload failed', true)
