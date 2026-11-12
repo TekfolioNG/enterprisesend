@@ -37,8 +37,36 @@ section[id] { scroll-margin-top: 90px; }
 .btn-text:hover { text-decoration: underline; text-underline-offset: 4px; }
 
 /* header */
-.header { position: sticky; top: 0; z-index: 30; border-bottom: 1px solid transparent; transition: background .25s, border-color .25s; }
-.header.scrolled { background: rgba(250, 251, 252, .88); backdrop-filter: blur(12px); border-bottom-color: var(--line); }
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  isolation: isolate;
+  border-bottom: 1px solid transparent;
+  transition: border-color .25s, box-shadow .25s;
+}
+
+.header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: rgba(250, 251, 252, .97);
+  backdrop-filter: blur(12px);
+  opacity: 0;
+  transition: opacity .25s;
+}
+
+.header.scrolled::before {
+  opacity: 1;
+}
+
+.header.scrolled {
+  border-bottom-color: var(--line);
+  box-shadow: 0 8px 24px -18px rgba(11, 11, 20, .3);
+}
+.header.scrolled::before { opacity: 1; }
+.header.scrolled { border-bottom-color: var(--line); box-shadow: 0 8px 24px -18px rgba(11, 11, 20, .3); }
 .header-row { display: flex; align-items: center; gap: 2rem; min-height: 72px; }
 .logo { height: 30px; width: auto; }
 .logo-link { display: block; }

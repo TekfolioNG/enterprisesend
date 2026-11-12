@@ -88,7 +88,7 @@ onBeforeUnmount(() => { io?.disconnect(); ctx?.revert() })
                                 class="absolute inset-0 rounded-full bg-white shadow-[0_0_0_4px_rgba(179,140,245,.25),0_10px_28px_-8px_rgba(179,140,245,.6)]"></span>
                             <span class="relative text-[1.1em] leading-none font-black text-[#100A26]">4</span>
                         </span>
-                    </span>safeguards, from bill to bank
+                    </span>safeguards for every transaction
                 </h2>
                 <p class="mx-auto m-0 max-w-none text-[1.05rem] leading-[1.6] text-[#C9C2E8]">
                     Each one adds to a single trusted, traceable record.
