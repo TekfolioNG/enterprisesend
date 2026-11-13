@@ -2,6 +2,10 @@
 // FAQ (light): the questions are sorted into three short groups so only a few show at a time. On the left, a heading,
 // the three groups as a quiet menu, and one closing nudge towards the sandbox; on the right, the answers as a plain
 // accordion with the first one open. Answers state what exists today and avoid promises we cannot yet measure.
+//
+// Layout: the grid has three direct children (heading + tabs, accordion, "Still deciding?" box).
+// Mobile: single column in DOM order, so the box comes last.
+// Desktop: heading + tabs and the box stack in column 1, the accordion spans both rows in column 2.
 
 const groups = [
     {
@@ -90,7 +94,7 @@ onMounted(async () => {
     const { gsap } = await import('gsap')
     ctx = gsap.context(() => {
         const q = gsap.utils.selector(el)
-        const parts = [...q('.f-left'), ...q('.f-right')] as HTMLElement[]
+        const parts = [...q('.f-left'), ...q('.f-right'), ...q('.f-cta')] as HTMLElement[]
         gsap.set(parts, { autoAlpha: 0, y: 22 })
         const io = new IntersectionObserver((entries) => {
             if (!entries.some((e) => e.isIntersecting)) return
@@ -106,9 +110,10 @@ onBeforeUnmount(() => { ctx?.revert() })
 <template>
     <section id="faq" ref="root" class="scroll-mt-16 bg-[#F9FBFF] py-16 max-tablet:py-12">
         <div
-            class="wrap mx-auto grid max-w-[1040px] items-start gap-10 tablet:grid-cols-[minmax(0,.8fr)_minmax(0,1.3fr)] tablet:gap-[clamp(2.5rem,6vw,5rem)]">
+            class="wrap mx-auto grid max-w-[1040px] items-start gap-10 tablet:grid-cols-[minmax(0,.8fr)_minmax(0,1.3fr)] tablet:grid-rows-[auto_1fr] tablet:gap-x-[clamp(2.5rem,6vw,5rem)] tablet:gap-y-8">
 
-            <div class="f-left">
+            <!-- 1. heading + tabs -->
+            <div class="f-left tablet:col-start-1 tablet:row-start-1">
                 <h2
                     class="mb-3 font-display text-[length:clamp(1.9rem,3.4vw,2.7rem)] leading-[1.1] font-bold tracking-[-0.02em] text-ink">
                     Straight answers
@@ -131,25 +136,16 @@ onBeforeUnmount(() => { ctx?.revert() })
                         <span class="text-[.8rem] font-medium opacity-60 max-tablet:hidden">{{ g.items.length }}</span>
                     </button>
                 </div>
-
-                <div
-                    class="mt-8 rounded-2xl border border-solid border-cloud bg-white p-5 shadow-[0_1px_2px_rgba(11,11,20,.04),0_12px_28px_-16px_rgba(74,21,164,.25)] max-tablet:mt-6">
-                    <p class="m-0 mb-1 font-display text-[1.05rem] font-bold text-ink">Still deciding?</p>
-                    <p class="m-0 mb-4 text-[.92rem] leading-[1.55] text-[#374151]">
-                        Sign up and explore the sandbox first. Upload a sample file and send a test to yourself.
-                    </p>
-                    <NuxtLink to="/apply"
-                        class="inline-flex min-h-11 items-center justify-center rounded-lg border-[1.5px] border-solid border-cta bg-cta px-5 py-2.5 text-[.95rem] font-semibold whitespace-nowrap text-white no-underline transition duration-300 ease-[cubic-bezier(.22,1,.36,1)] hover:-translate-y-0.5 hover:border-cta-dark hover:bg-cta-dark active:translate-y-0 active:scale-[.985] active:duration-100">
-                        Start Secure Billing</NuxtLink>
-                </div>
             </div>
 
-            <div class="f-right">
+            <!-- 2. accordion: spans both rows in column 2 on desktop -->
+            <div class="f-right tablet:col-start-2 tablet:row-span-2 tablet:row-start-1 tablet:mt-8">
                 <Transition name="faq-swap" mode="out-in">
                     <ul :key="current.id" role="tabpanel" :id="`faq-list-${current.id}`"
                         :aria-labelledby="`faq-tab-${current.id}`"
                         class="m-0 list-none border-b border-solid border-cloud p-0">
-                        <li v-for="(item, i) in current.items" :key="item.q" class="border-t border-solid border-cloud">
+                        <li v-for="(item, i) in current.items" :key="item.q"
+                            class="border-t border-solid border-cloud px-4 tablet:px-5">
                             <h3 class="m-0">
                                 <button type="button" :id="`faq-q-${current.id}-${i}`" :aria-expanded="open === i"
                                     :aria-controls="`faq-a-${current.id}-${i}`"
@@ -176,13 +172,25 @@ onBeforeUnmount(() => { ctx?.revert() })
                                 class="grid transition-[grid-template-rows] duration-500 ease-[cubic-bezier(.22,1,.36,1)] motion-reduce:transition-none"
                                 :class="open === i ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'">
                                 <div class="overflow-hidden">
-                                    <p class="m-0 max-w-[58ch] pr-12 pb-5 text-[1rem] leading-[1.65] text-[#2D3142]">{{
+                                    <p class="m-0 max-w-[58ch] pr-10 pb-5 text-[1rem] leading-[1.65] text-[#2D3142]">{{
                                         item.a }}</p>
                                 </div>
                             </div>
                         </li>
                     </ul>
                 </Transition>
+            </div>
+
+            <!-- 3. "Still deciding?" box: last on mobile, under the tabs in column 1 on desktop -->
+            <div
+                class="f-cta rounded-2xl border border-solid border-cloud bg-white p-5 shadow-[0_1px_2px_rgba(11,11,20,.04),0_12px_28px_-16px_rgba(74,21,164,.25)] tablet:col-start-1 tablet:row-start-2">
+                <p class="m-0 mb-1 font-display text-[1.05rem] font-bold text-ink">Still deciding?</p>
+                <p class="m-0 mb-4 text-[.92rem] leading-[1.55] text-[#374151]">
+                    Sign up and explore the sandbox first. Upload a sample file and send a test to yourself.
+                </p>
+                <NuxtLink to="/apply"
+                    class="inline-flex min-h-11 items-center justify-center rounded-lg border-[1.5px] border-solid border-cta bg-cta px-5 py-2.5 text-[.95rem] font-semibold whitespace-nowrap text-white no-underline transition duration-300 ease-[cubic-bezier(.22,1,.36,1)] hover:-translate-y-0.5 hover:border-cta-dark hover:bg-cta-dark active:translate-y-0 active:scale-[.985] active:duration-100">
+                    Start Secure Billing</NuxtLink>
             </div>
         </div>
     </section>

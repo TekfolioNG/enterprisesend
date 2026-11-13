@@ -3,7 +3,7 @@ import { gmail, whatsapp } from '~/utils/brandIcons'
 
 // Steps (light): from billing file to receipt, four stages down a vertical rail. Each stage carries a small "real-looking"
 // mock of the thing it describes (a spreadsheet, the three message previews, a send table, a receipt and activity log),
-// drawn in HTML so it stays crisp and compact. No second-person approval: guardrails do the checking instead.
+// drawn in HTML so it stays crisp and compact. A second person approves before anything is sent; guardrails check the file first.
 // The finished state is the default markup, so reduced-motion visitors (and no-JS) see every stage complete.
 
 const steps = [
@@ -15,13 +15,13 @@ const steps = [
     {
         id: 'preview',
         title: 'Preview before you send',
-        text: 'See exactly how each bill will look on SMS, WhatsApp and email, with the real names and amounts filled in. Send a test to your own phone and inbox first. Nothing reaches a customer until you confirm.',
-        tags: ['Errors block sending', 'Cost shown up front', 'Test to yourself first']
+        text: 'See exactly how each bill will look on SMS, WhatsApp and email, with the real names and amounts filled in. Send a test to your own phone and inbox first.',
+        tags: ['Errors block sending', 'An approver login', 'Cost shown up front', 'Test to yourself first']
     },
     {
         id: 'send',
         title: 'Messages go out on every channel',
-        text: 'Each customer gets the bill by SMS, WhatsApp and email, with a personal payment link. Opt-outs are respected, and you can see the status of every message.'
+        text: 'Each customer gets the bill by SMS, WhatsApp and email, with a personal payment link. Customers can opt out, and you can see the status of every message.'
     },
     {
         id: 'match',
@@ -165,7 +165,7 @@ onBeforeUnmount(() => { stopCycle(); io?.disconnect(); ctx?.revert() })
                     From billing file to receipt in four steps
                 </h2>
                 <p class="mx-auto m-0 max-w-none text-[1.05rem] leading-[1.6] text-[#2D3142]">
-                    Built-in guardrails check your work at every step, so you stay in control without the paperwork.
+                    Built-in checks and a second pair of eyes at every step, so nothing goes out wrong.
                 </p>
             </div>
 

@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import { signInWithEmailAndPassword, getMultiFactorResolver, TotpMultiFactorGenerator } from 'firebase/auth'
+import { getMultiFactorResolver, signInWithEmailAndPassword, TotpMultiFactorGenerator } from 'firebase/auth'
+import { CircleAlert, Eye, EyeOff, KeyRound, Lock, Mail } from 'lucide-vue-next'
 const { $auth } = useNuxtApp()
 const email = ref('')
 const password = ref('')
 const code = ref('')
 const error = ref('')
 const busy = ref(false)
+const showPassword = ref(false)
 const step = ref<'password' | 'code'>('password')
 let resolver: any = null
 
@@ -44,26 +46,53 @@ function startOver() { step.value = 'password'; password.value = ''; code.value 
 </script>
 
 <template>
-  <main class="center">
-    <form v-if="step === 'password'" class="card narrow" @submit.prevent="login">
+  <main class="center auth-bg">
+    <form v-if="step === 'password'" class="card narrow auth-card" @submit.prevent="login">
       <div class="login-brand">
         <BrandLogo variant="full" />
         <h1 class="sr-only">EnterpriseSend sign in</h1>
       </div>
-      <p class="muted">Sign in to your organisation account</p>
-      <label>Email<input v-model="email" type="email" autocomplete="username" required></label>
-      <label>Password<input v-model="password" type="password" autocomplete="current-password" required></label>
-      <p v-if="error" class="error">{{ error }}</p>
-      <button :disabled="busy">{{ busy ? 'Signing in…' : 'Sign in' }}</button>
+      <p class="muted auth-title" style="margin:0">Sign in to your organisation account</p>
+      <label>Email
+        <span class="field">
+          <Mail class="lead" :size="18" :stroke-width="1.9" aria-hidden="true" />
+          <input v-model="email" type="email" autocomplete="username" required>
+        </span>
+      </label>
+      <label>Password
+        <span class="field">
+          <Lock class="lead" :size="18" :stroke-width="1.9" aria-hidden="true" />
+          <input v-model="password" :type="showPassword ? 'text' : 'password'" autocomplete="current-password" required>
+          <button type="button" class="trail" :aria-label="showPassword ? 'Hide password' : 'Show password'"
+            @click="showPassword = !showPassword">
+            <EyeOff v-if="showPassword" :size="18" :stroke-width="1.9" />
+            <Eye v-else :size="18" :stroke-width="1.9" />
+          </button>
+        </span>
+      </label>
+      <p v-if="error" class="notice bad" role="alert" style="margin:0">
+        <CircleAlert :size="18" :stroke-width="2" />{{ error }}
+      </p>
+      <button class="wide" :disabled="busy">{{ busy ? 'Signing in…' : 'Sign in' }}</button>
     </form>
 
-    <form v-else class="card narrow" @submit.prevent="verify">
-      <div class="login-brand"><BrandLogo variant="full" /></div>
-      <h1 class="sr-only">Two-step sign-in</h1>
-      <p class="muted">Enter the 6-digit code from your authenticator app.</p>
-      <input v-model="code" type="text" class="codebox" inputmode="numeric" autocomplete="one-time-code" maxlength="6" required>
-      <p v-if="error" class="error">{{ error }}</p>
-      <button :disabled="busy || code.length < 6">{{ busy ? 'Checking…' : 'Verify and sign in' }}</button>
+    <form v-else class="card narrow auth-card" @submit.prevent="verify">
+      <div class="login-brand">
+        <BrandLogo variant="full" />
+      </div>
+      <span class="auth-ic">
+        <KeyRound :size="24" :stroke-width="1.75" aria-hidden="true" />
+      </span>
+      <div class="auth-title">
+        <h1 style="font-size:1.35rem">Two-step sign-in</h1>
+        <p class="muted">Enter the 6-digit code from your authenticator app.</p>
+      </div>
+      <input v-model="code" type="text" class="codebox" inputmode="numeric" autocomplete="one-time-code" maxlength="6"
+        aria-label="6-digit code" required>
+      <p v-if="error" class="notice bad" role="alert" style="margin:0">
+        <CircleAlert :size="18" :stroke-width="2" />{{ error }}
+      </p>
+      <button class="wide" :disabled="busy || code.length < 6">{{ busy ? 'Checking…' : 'Verify and sign in' }}</button>
       <button type="button" class="link" @click="startOver">Use a different account</button>
     </form>
   </main>

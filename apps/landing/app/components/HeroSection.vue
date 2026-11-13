@@ -70,12 +70,12 @@ onBeforeUnmount(() => { tl?.kill(); copyTl?.kill(); io?.disconnect() })
 
 <template>
   <section ref="root"
-    class="hero relative -mt-[72px] overflow-hidden pt-[calc(72px+2.5rem)] pb-14 max-tablet:pt-[calc(72px+0.5rem)] max-tablet:pb-10">
+    class="hero relative -mt-[72px] overflow-hidden pt-[calc(72px+4rem)] pb-24 max-tablet:pt-[calc(72px+0.5rem)] max-tablet:pb-12">
     <div
       class="wrap grid grid-cols-1 items-center gap-4 tablet:grid-cols-[minmax(0,1fr)_minmax(0,1.02fr)] tablet:gap-[clamp(1rem,2.5vw,2rem)]">
       <div class="hero-copy flex flex-col text-left max-tablet:items-center max-tablet:text-center">
         <p class="kicker-reveal mb-[.9rem] font-display text-[.8rem] font-bold tracking-[.12em] text-brand-indigo">
-          SECURE AUTOMATED BILLINGS &amp; COLLECTIONS</p>
+          SECURE AUTOMATED BILLING &amp; COLLECTIONS</p>
         <h1
           class="mb-4 font-display text-[length:clamp(2.4rem,4.4vw,3.7rem)] leading-[1.05] font-bold tracking-[-0.03em] text-ink max-tablet:text-[length:clamp(2rem,8vw,2.5rem)]">
           <span class="beat -mb-[.12em] block overflow-clip pb-[.12em] whitespace-nowrap"><span
@@ -85,10 +85,11 @@ onBeforeUnmount(() => { tl?.kill(); copyTl?.kill(); io?.disconnect() })
           <span class="beat -mb-[.12em] block overflow-clip pb-[.12em] whitespace-nowrap"><span
               class="beat-inner block">No arguments.</span></span>
         </h1>
-        <p class="reveal mb-[1.1rem] max-w-[52ch] text-[1.02rem] leading-[1.6] text-[#2D3142] max-tablet:mx-auto">Upload
+        <p class="reveal mb-[1.1rem] max-w-[56ch] text-[1.02rem] leading-[1.6] text-[#2D3142] max-tablet:mx-auto">Upload
           your bulk bills file to reach every customer at once with personalized
-          messages across SMS, WhatsApp, and email, each with a secure payment link. Smart checks catch entry errors
-          before anything is sent, and every incoming payment is matched to its bill automatically.</p>
+          messages across SMS, WhatsApp, and email, each with a secure payment link. Smart checks catch any errors
+          or inconsistencies before anything is sent, and every incoming
+          payment is matched to its bill automatically.</p>
 
         <div class="reveal mb-4 flex flex-wrap items-center gap-[.9rem] max-tablet:w-full max-tablet:justify-center">
           <NuxtLink to="/apply"
@@ -101,7 +102,7 @@ onBeforeUnmount(() => { tl?.kill(); copyTl?.kill(); io?.disconnect() })
 
         <p class="reveal m-0 text-[.88rem] font-medium text-[#667085]"><em>For utilities, estates, schools, faith
             groups,
-            clinics, and organizations who want modern, smarter, and foolproof billings and collections system.</em>
+            clinics, and organizations who want modern, smarter, and foolproof billing and collections system.</em>
         </p>
       </div>
 

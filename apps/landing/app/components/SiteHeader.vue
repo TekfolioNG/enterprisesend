@@ -26,25 +26,27 @@ onBeforeUnmount(() => { window.removeEventListener('scroll', onScroll); window.r
       </NuxtLink>
       <nav class="nav" aria-label="Main">
         <NuxtLink to="/#how">How it works</NuxtLink>
-        <NuxtLink to="/#security">Security</NuxtLink>
-        <NuxtLink to="/#pricing">Pricing</NuxtLink>
+        <NuxtLink to="/security">Security</NuxtLink>
+        <NuxtLink to="/pricing">Pricing</NuxtLink>
       </nav>
       <div class="header-actions">
         <a :href="`${appUrl}/login`" class="btn-text">Sign in</a>
         <NuxtLink to="/apply" class="btn">Start Secure Billing</NuxtLink>
-        <button ref="menuBtn" class="menu-btn" type="button" :aria-expanded="open" aria-controls="menu-sheet" aria-label="Menu" @click="open = !open"><span></span></button>
+        <button ref="menuBtn" class="menu-btn" type="button" :aria-expanded="open" aria-controls="menu-sheet"
+          aria-label="Menu" @click="open = !open"><span></span></button>
       </div>
     </div>
 
     <div id="menu-sheet" :class="['sheet', { open }]" :aria-hidden="!open" role="dialog" aria-label="Menu">
       <div class="sheet-top">
         <img src="/brand/logo-one-line.svg" alt="EnterpriseSend" class="logo">
-        <button class="menu-btn" style="display:inline-flex" type="button" aria-label="Close menu" @click="close"><span style="background:transparent"></span></button>
+        <button class="menu-btn" style="display:inline-flex" type="button" aria-label="Close menu" @click="close"><span
+            style="background:transparent"></span></button>
       </div>
       <nav aria-label="Menu">
         <NuxtLink to="/#how" @click="open = false">How it works</NuxtLink>
-        <NuxtLink to="/#security" @click="open = false">Security</NuxtLink>
-        <NuxtLink to="/#pricing" @click="open = false">Pricing</NuxtLink>
+        <NuxtLink to="/security" @click="open = false">Security</NuxtLink>
+        <NuxtLink to="/pricing" @click="open = false">Pricing</NuxtLink>
       </nav>
       <div class="sheet-cta">
         <NuxtLink to="/apply" class="btn btn-lg" @click="open = false">Start Secure Billing</NuxtLink>

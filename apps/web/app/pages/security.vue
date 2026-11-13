@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { multiFactor, TotpMultiFactorGenerator } from 'firebase/auth'
+import { Check, CircleAlert, ShieldCheck, Smartphone } from 'lucide-vue-next'
 import QRCode from 'qrcode'
 import { brand } from '~/utils/brand'
 
@@ -56,31 +57,49 @@ onMounted(refresh)
 <template>
   <main class="page">
     <TopBar />
-    <section class="card">
-      <h2>Two-step sign-in</h2>
-      <p class="muted">Protect {{ user?.email }} with a 6-digit code from an authenticator app (Google Authenticator, Microsoft Authenticator, 1Password and similar).</p>
-      <p v-if="required && !factors.length" class="error">Your organisation requires two-step sign-in. Set it up to continue.</p>
+    <div class="page-head">
+      <h1>Security</h1>
+      <p class="muted">Protect {{ user?.email }} with a 6-digit code from an authenticator app (Google Authenticator,
+        Microsoft Authenticator, 1Password and similar).</p>
+    </div>
 
-      <div v-if="factors.length">
-        <p class="ok">On: {{ factors.map(f => f.name).join(', ') }}</p>
+    <p v-if="required && !factors.length" class="notice bad" role="alert">
+      <CircleAlert :size="18" :stroke-width="2" />Your organisation requires two-step sign-in. Set it up to continue.
+    </p>
+
+    <section class="card" style="max-width:560px">
+      <h2 style="display:flex;align-items:center;gap:.5rem">
+        <ShieldCheck :size="20" :stroke-width="1.9" />Two-step sign-in
+      </h2>
+
+      <p v-if="factors.length" class="notice" style="margin:.75rem 0 0">
+        <Check :size="18" :stroke-width="2.4" />On: {{factors.map(f => f.name).join(', ')}}
+      </p>
+
+      <div v-else-if="!qr" style="margin-top:.75rem">
+        <p class="muted" style="margin:0 0 .9rem">Once on, you will be asked for a code every time you sign in.</p>
+        <button :disabled="busy" style="display:inline-flex;align-items:center;gap:.4rem" @click="start">
+          <Smartphone :size="16" :stroke-width="1.9" />Set up authenticator app
+        </button>
       </div>
 
-      <div v-else-if="!qr">
-        <button :disabled="busy" @click="start">Set up authenticator app</button>
-      </div>
-
-      <div v-else class="narrow" style="display:grid; gap:.75rem">
-        <p>1. Scan this code with your authenticator app.</p>
+      <div v-else style="display:grid;gap:.9rem;margin-top:.75rem">
+        <p style="margin:0"><b>1.</b> Scan this code with your authenticator app.</p>
         <img :src="qr" alt="QR code for your authenticator app" class="qr">
-        <p class="muted">Cannot scan? Enter this key by hand: <code>{{ secretKey }}</code></p>
-        <p>2. Enter the 6-digit code it shows.</p>
-        <form style="display:grid; gap:.75rem" @submit.prevent="finish">
-          <input v-model="code" type="text" class="codebox" inputmode="numeric" autocomplete="one-time-code" maxlength="6" required>
-          <button :disabled="busy || code.length < 6">Turn on two-step sign-in</button>
+        <p class="muted" style="margin:0">Cannot scan? Enter this key by hand: <code>{{ secretKey }}</code></p>
+        <p style="margin:0"><b>2.</b> Enter the 6-digit code it shows.</p>
+        <form style="display:grid;gap:.75rem;justify-items:start" @submit.prevent="finish">
+          <input v-model="code" type="text" class="codebox" inputmode="numeric" autocomplete="one-time-code"
+            maxlength="6" aria-label="6-digit code" required>
+          <button :disabled="busy || code.length < 6">{{ busy ? 'Checking…' : 'Turn on two-step sign-in' }}</button>
         </form>
       </div>
 
-      <p v-if="message" :class="isError ? 'error' : 'ok'">{{ message }}</p>
+      <p v-if="message" class="notice" :class="{ bad: isError }" :role="isError ? 'alert' : 'status'"
+        style="margin:.9rem 0 0">
+        <CircleAlert v-if="isError" :size="18" :stroke-width="2" />
+        <Check v-else :size="18" :stroke-width="2.4" />{{ message }}
+      </p>
     </section>
   </main>
 </template>

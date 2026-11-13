@@ -6,11 +6,12 @@ export default defineNuxtConfig({
   ssr: false, // single-page app: simple to host and nothing sensitive renders on a server
   devtools: { enabled: false },
   vite: { plugins: [tailwindcss()] },
-  css: ['~/assets/tailwind.css', '~/assets/main.css'],
+  css: ['~/assets/tailwind.css', '@fontsource-variable/space-grotesk',
+'@fontsource-variable/inter','~/assets/main.css'],
   app: {
     head: {
       title: brand.productName,
-      meta: [{ name: 'theme-color', content: '#310CA7' }],
+      meta: [{ name: 'theme-color', content: '#4A15A4' }],
       link: [
         { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
         { rel: 'icon', type: 'image/svg+xml', href: '/favicon-dark.svg', media: '(prefers-color-scheme: dark)' },
