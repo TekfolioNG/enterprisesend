@@ -15,7 +15,7 @@ gcloud iam service-accounts describe "$SA_EMAIL" >/dev/null 2>&1 || \
   gcloud iam service-accounts create es-api --display-name="EnterpriseSend API"
 
 # Least privilege: the API can use Firestore, read secrets and queue tasks.
-for role in roles/datastore.user roles/secretmanager.secretAccessor roles/cloudtasks.enqueuer; do
+for role in roles/datastore.user roles/secretmanager.secretAccessor roles/cloudtasks.enqueuer roles/firebaseauth.viewer; do
   gcloud projects add-iam-policy-binding "$PROJECT" --member="serviceAccount:${SA_EMAIL}" \
     --role="$role" --condition=None --quiet >/dev/null
 done

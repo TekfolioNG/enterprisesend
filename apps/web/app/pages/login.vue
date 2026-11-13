@@ -2,6 +2,8 @@
 import { getMultiFactorResolver, signInWithEmailAndPassword, TotpMultiFactorGenerator } from 'firebase/auth'
 import { CircleAlert, Eye, EyeOff, KeyRound, Lock, Mail } from 'lucide-vue-next'
 const { $auth } = useNuxtApp()
+const user = useState<any>('user')
+const claims = useState<any>('claims')
 const email = ref('')
 const password = ref('')
 const code = ref('')
@@ -16,7 +18,7 @@ async function login() {
   error.value = ''
   try {
     await signInWithEmailAndPassword($auth as any, email.value, password.value)
-    await navigateTo('/')
+    await finishSignIn()
   } catch (e: any) {
     if (e?.code === 'auth/multi-factor-auth-required') {
       resolver = getMultiFactorResolver($auth as any, e)
@@ -35,11 +37,21 @@ async function verify() {
     if (!hint) { error.value = 'No authenticator app is set up for this account. Ask your administrator.'; return }
     const assertion = TotpMultiFactorGenerator.assertionForSignIn(hint.uid, code.value.trim())
     await resolver.resolveSignIn(assertion)
-    await navigateTo('/')
+    await finishSignIn()
   } catch {
     error.value = 'That code was not accepted. Wait for a new code and try again.'
     code.value = ''
   } finally { busy.value = false }
+}
+
+// The route guard reads this state. Fill it before navigating, or the guard sends the person
+// back to /login and the button seems to need a second click.
+async function finishSignIn() {
+  const u = ($auth as any).currentUser
+  const t = await u.getIdTokenResult(true)
+  user.value = { email: u.email, uid: u.uid }
+  claims.value = { tenant_id: t.claims.tenant_id, role: t.claims.role }
+  await navigateTo('/')
 }
 
 function startOver() { step.value = 'password'; password.value = ''; code.value = ''; error.value = ''; resolver = null }
