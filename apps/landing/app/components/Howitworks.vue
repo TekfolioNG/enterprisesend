@@ -5,8 +5,8 @@
 // The "4" in the heading is stamped into place, then gives a soft pulse now and then.
 // The finished state is the default markup, so reduced-motion visitors (and no-JS) see every step complete.
 const steps = [
-    { title: 'Registered senders only', text: 'Bills come only from verified organisations, so an impersonator cannot send one.' },
-    { title: 'Verified sender/receiver', text: 'Every bill and every payment names who sent it and who it was meant for.' },
+    { title: 'Registered billers only', text: 'Bills come only from verified organisations, so an impersonator cannot send one.' },
+    { title: 'Verified biller and payer', text: 'Every bill and every payment names who sent it and who it was meant for.' },
     { title: 'One source of truth', text: 'The billing sheet, the messages and the payments live in one secure cloud record.' },
     { title: 'Traceable end to end', text: 'Every payment is matched to its original bill and written to a tamper-evident activity log.' }
 ]
@@ -91,7 +91,7 @@ onBeforeUnmount(() => { io?.disconnect(); ctx?.revert() })
                     </span>safeguards for every transaction
                 </h2>
                 <p class="mx-auto m-0 max-w-none text-[1.05rem] leading-[1.6] text-[#C9C2E8]">
-                    Each one adds to a single trusted, traceable record.
+                    Each one adds to a single trusted, verifiable record.
                 </p>
             </div>
 

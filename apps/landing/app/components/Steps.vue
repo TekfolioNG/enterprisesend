@@ -476,7 +476,7 @@ onBeforeUnmount(() => { stopCycle(); io?.disconnect(); ctx?.revert() })
                                         <li v-for="l in logRows" :key="l.t"
                                             class="log-row flex gap-3 text-[.78rem] leading-[1.4]">
                                             <span class="w-10 shrink-0 font-mono text-[.72rem] text-[#667085]">{{ l.t
-                                                }}</span>
+                                            }}</span>
                                             <span class="text-ink">{{ l.text }}</span>
                                         </li>
                                     </ul>

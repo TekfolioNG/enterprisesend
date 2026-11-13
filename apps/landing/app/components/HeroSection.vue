@@ -86,10 +86,10 @@ onBeforeUnmount(() => { tl?.kill(); copyTl?.kill(); io?.disconnect() })
               class="beat-inner block">No arguments.</span></span>
         </h1>
         <p class="reveal mb-[1.1rem] max-w-[56ch] text-[1.02rem] leading-[1.6] text-[#2D3142] max-tablet:mx-auto">Upload
-          your bulk bills file to reach every customer at once with personalized
-          messages across SMS, WhatsApp, and email, each with a secure payment link. Smart checks catch any errors
-          or inconsistencies before anything is sent, and every incoming
-          payment is matched to its bill automatically.</p>
+          your bulk bills file to reach every customer at once with personalized invoices across SMS, WhatsApp, and
+          email, each with a secure payment link. Smart checks catch errors before anything is sent, and every payment
+          is
+          matched to its bill automatically.</p>
 
         <div class="reveal mb-4 flex flex-wrap items-center gap-[.9rem] max-tablet:w-full max-tablet:justify-center">
           <NuxtLink to="/apply"
@@ -101,8 +101,7 @@ onBeforeUnmount(() => { tl?.kill(); copyTl?.kill(); io?.disconnect() })
         </div>
 
         <p class="reveal m-0 text-[.88rem] font-medium text-[#667085]"><em>For utilities, estates, schools, faith
-            groups,
-            clinics, and organizations who want modern, smarter, and foolproof billing and collections system.</em>
+            groups, clinics and organisations that want a modern, reliable billing and collections system.</em>
         </p>
       </div>
 

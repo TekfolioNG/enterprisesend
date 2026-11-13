@@ -1,6 +1,6 @@
 <script setup lang="ts">
-// Problem section (home-page background): three everyday frustrations, each a line drawing that does one small thing.
-// The drawings sit on the same dark panel as the "How it works" section, so their strokes, fills and text are reversed for dark.
+// Problem section (light, same background as the hero): three everyday frustrations, each a line drawing that does one small thing.
+// The drawings sit on the same dark as the "How it works" section, so lines, text and fills are drawn for dark.
 // The finished drawings are the default markup, so reduced-motion visitors (and no-JS) see them as they are.
 // With motion allowed, each card is set to its "before" state on mount and plays once as it scrolls into view.
 
@@ -83,24 +83,22 @@ onBeforeUnmount(() => { io?.disconnect(); ctx?.revert() })
 </script>
 
 <template>
-    <section ref="root" class="bg-[#F9FBFF] py-16 max-tablet:py-12">
+    <section ref="root" class="border-t border-solid border-cloud bg-[#F9FBFF] py-16 max-tablet:py-12">
         <div class="wrap">
             <div class="p-head mb-10 text-center max-tablet:mb-8">
                 <h2
                     class="mb-3 font-display text-[length:clamp(1.9rem,3.6vw,3rem)] leading-[1.1] font-bold tracking-[-0.02em] text-ink">
-                    Every bill and payment, traceable.
+                    Heard these lines lately?
                 </h2>
                 <p class="mx-auto m-0 max-w-none text-[1.05rem] leading-[1.6] text-[#2D3142]">
-                    No manual paper trail. You get a clear, digital record of who billed, who paid and where it went.
+                    Bills nobody can trace. No clear record of who billed, who paid and where it went.
                 </p>
             </div>
 
             <div class="grid grid-cols-1 gap-6 tablet:grid-cols-3">
                 <article v-for="c in cards" :key="c.id" :data-scene="c.id"
                     class="p-card flex flex-col rounded-2xl border border-solid border-cloud bg-white p-5 shadow-[0_1px_2px_rgba(11,11,20,.04),0_12px_28px_-16px_rgba(74,21,164,.25)]">
-                    <!-- illustration panel: same dark as the "How it works" section, so everything inside is reversed for dark -->
-                    <div class="mb-5 rounded-xl bg-[#100A26] bg-[image:radial-gradient(70%_60%_at_50%_0%,rgba(74,21,164,.38),transparent_75%)] p-3"
-                        aria-hidden="true">
+                    <div class="mb-5 rounded-xl bg-[#100A26] p-3" aria-hidden="true">
                         <svg viewBox="0 0 320 200" class="block h-auto w-full overflow-visible" focusable="false"
                             fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
 
@@ -118,11 +116,11 @@ onBeforeUnmount(() => { io?.disconnect(); ctx?.revert() })
                                     <path d="M135 72h46M135 82h30" class="stroke-[#B38CF5]" />
                                 </g>
                                 <g class="badge">
-                                    <circle cx="196" cy="56" r="10" class="fill-[#F0525A]" />
+                                    <circle cx="196" cy="56" r="10" class="fill-[#F97066]" />
                                     <text x="196" y="60" text-anchor="middle" font-size="11" font-weight="700"
-                                        class="fill-white font-sans">1</text>
+                                        class="fill-[#100A26] font-sans">1</text>
                                 </g>
-                                <path d="M129 122h50M129 136h62M129 150h38" class="stroke-white/20" />
+                                <path d="M129 122h50M129 136h62M129 150h38" class="stroke-[#C9C2E8]/25" />
                             </template>
 
                             <!-- 2. the screenshots -->
@@ -136,9 +134,9 @@ onBeforeUnmount(() => { io?.disconnect(); ctx?.revert() })
                                     <text x="0" y="-8" text-anchor="middle" font-size="13" font-weight="700"
                                         class="fill-white font-sans">{{
                                             s.amount }}</text>
-                                    <path d="M-26 8h52M-26 20h34" class="stroke-white/20" />
-                                    <circle cx="0" cy="44" r="8" stroke-width="2" class="stroke-[#4FD9A0]" />
-                                    <path d="M-4 44l3 3 5.5-6" stroke-width="2" class="stroke-[#4FD9A0]" />
+                                    <path d="M-26 8h52M-26 20h34" class="stroke-[#C9C2E8]/25" />
+                                    <circle cx="0" cy="44" r="8" stroke-width="2" class="stroke-[#5BD6A1]" />
+                                    <path d="M-4 44l3 3 5.5-6" stroke-width="2" class="stroke-[#5BD6A1]" />
                                 </g>
                             </g>
 
@@ -155,23 +153,23 @@ onBeforeUnmount(() => { io?.disconnect(); ctx?.revert() })
                                     class="fill-white font-sans">₦185,000</text>
                                 <text x="22" y="120" font-size="8.5" class="fill-[#C9C2E8] font-sans">School fees, Term
                                     2</text>
-                                <path d="M22 138h50" class="stroke-white/20" />
+                                <path d="M22 138h50" class="stroke-[#C9C2E8]/25" />
                                 <!-- bank account -->
                                 <rect x="202" y="36" width="108" height="128" rx="8"
                                     class="fill-[#1A1238] stroke-[#B38CF5]" />
                                 <text x="214" y="58" font-size="8" font-weight="700"
                                     class="fill-[#C9C2E8] font-sans">PAID INTO</text>
                                 <text x="214" y="74" font-size="10.5" font-weight="600"
-                                    class="fill-[#FF8A8F] font-sans">Sunday Martins</text>
+                                    class="fill-[#F97066] font-sans">C. Eze</text>
                                 <text x="214" y="104" font-size="12" font-weight="500"
                                     class="fill-[#C9C2E8] font-sans">•••• 4821</text>
-                                <path d="M214 124h60M214 138h40" class="stroke-white/20" />
+                                <path d="M214 124h60M214 138h40" class="stroke-[#C9C2E8]/25" />
                                 <!-- the link that does not add up -->
-                                <path class="link stroke-[#F0525A]" pathLength="100" d="M118 100H202" />
+                                <path class="link stroke-[#F97066]" pathLength="100" d="M118 100H202" />
                                 <g class="flag">
-                                    <circle cx="160" cy="100" r="12" class="fill-[#F0525A]" />
+                                    <circle cx="160" cy="100" r="12" class="fill-[#F97066]" />
                                     <text x="160" y="105" text-anchor="middle" font-size="15" font-weight="700"
-                                        class="fill-white font-sans">≠</text>
+                                        class="fill-[#100A26] font-sans">≠</text>
                                 </g>
                             </template>
                         </svg>
@@ -185,12 +183,11 @@ onBeforeUnmount(() => { io?.disconnect(); ctx?.revert() })
 
             <!-- hand-over to the next section -->
             <div class="p-next mt-12 flex flex-col items-center gap-4 text-center max-tablet:mt-9">
-                <p class="m-0 font-display text-[1.15rem] font-bold text-ink">It really doesn't have to be this
-                    stressful...
+                <p class="m-0 font-display text-[1.15rem] font-bold text-ink">Truth is, it shouldn’t be that stressful.
                 </p>
                 <NuxtLink to="/#how"
                     class="group inline-flex min-h-12 items-center justify-center gap-2 rounded-lg border-[1.5px] border-solid border-[#CBD0D8] bg-white px-6 py-3 text-[.98rem] font-semibold whitespace-nowrap text-brand-indigo no-underline shadow-[0_1px_2px_rgba(11,11,20,.06),0_6px_14px_-8px_rgba(11,11,20,.18)] transition duration-300 ease-[cubic-bezier(.22,1,.36,1)] hover:-translate-y-0.5 hover:border-cta hover:bg-cta hover:text-white hover:shadow-[0_2px_4px_rgba(11,11,20,.06),0_14px_26px_-12px_rgba(74,21,164,.45)] active:translate-y-0 active:scale-[.985] active:duration-100">
-                    Here's How with EnterpriseSend
+                    See how EnterpriseSend fixes this
                     <svg class="h-4 w-4 transition-transform duration-300 group-hover:translate-y-0.5"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
                         stroke-linejoin="round" aria-hidden="true">
