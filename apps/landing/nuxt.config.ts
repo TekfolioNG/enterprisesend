@@ -10,7 +10,7 @@ export default defineNuxtConfig({
     '@fontsource-variable/inter/index.css',
     '~/assets/css/base.css'
   ],
-  nitro: { prerender: { routes: ['/', '/apply', '/privacy', '/terms'] } },
+  nitro: { prerender: { routes: ['/', '/apply', '/security', '/pricing', '/privacy', '/terms'] } },
   runtimeConfig: {
     public: {
       // Where the Sign in button goes. Override with NUXT_PUBLIC_APP_URL (production: https://app.enterprisesend.com).

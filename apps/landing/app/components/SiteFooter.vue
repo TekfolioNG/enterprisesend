@@ -17,13 +17,6 @@ const groups = computed(() => [
     ]
   },
   {
-    title: 'Company',
-    links: [
-      { label: 'About', to: '/about' },
-      { label: 'Team', to: '/team' }
-    ]
-  },
-  {
     title: 'Account',
     links: [
       { label: 'Start Secure Billing', to: '/apply' },

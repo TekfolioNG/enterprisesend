@@ -14,10 +14,10 @@
   },
   "staging": {
     "web_origin": "https://staging.enterprisesend.com",
-    "email_from": "billing@staging.enterprisesend.com"
+    "email_from": "billing@mail.enterprisesend.com"
   },
   "production": {
     "web_origin": "https://app.enterprisesend.com",
-    "email_from": "billing@enterprisesend.com"
+    "email_from": "billing@mail.enterprisesend.com"
   }
 }

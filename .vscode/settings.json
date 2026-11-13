@@ -3,5 +3,6 @@
   "python.testing.pytestEnabled": true,
   "python.testing.pytestArgs": ["services/api/tests"],
   "editor.formatOnSave": true,
-  "files.eol": "\n"
+  "files.eol": "\n",
+  "python.terminal.useEnvFile": true
 }
